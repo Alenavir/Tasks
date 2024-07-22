@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
 public class Task {
 
     private Long id;

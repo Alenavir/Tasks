@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
 public class User {
 
     private Long id;
