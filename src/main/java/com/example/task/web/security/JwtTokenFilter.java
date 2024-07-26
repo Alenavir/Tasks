@@ -1,4 +1,4 @@
-package com.example.task.security;
+package com.example.task.web.security;
 
 import com.example.task.domain.exception.ResourceNotFoundException;
 import jakarta.servlet.FilterChain;

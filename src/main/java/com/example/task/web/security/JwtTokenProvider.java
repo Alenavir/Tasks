@@ -1,4 +1,4 @@
-package com.example.task.security;
+package com.example.task.web.security;
 
 import com.example.task.domain.exception.AccessDeniedException;
 import com.example.task.domain.user.Role;

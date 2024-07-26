@@ -10,9 +10,7 @@ public interface TaskService {
     Task getById(Long id);
 
     List<Task> getAllByUserId(Long userId);
-
-    List<Task> getAllSoonTasks();
-
+    List<Task> getAllSoonTasks(Long userId);
     Task update(Task task);
 
     Task create(Task task, Long userId);

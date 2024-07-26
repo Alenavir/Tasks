@@ -1,7 +1,9 @@
 package com.example.task.config;
 
-import com.example.task.security.JwtTokenFilter;
-import com.example.task.security.JwtTokenProvider;
+import com.example.task.service.UserService;
+import com.example.task.web.security.JwtTokenFilter;
+import com.example.task.web.security.JwtTokenProvider;
+import com.example.task.web.security.expression.CustomSecurityExpression;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +12,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,12 +24,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor(onConstructor = @__(@Lazy))
 public class SecurityConfig {
 
     private final ApplicationContext applicationContext;
     private final JwtTokenProvider jwtTokenProvider;
+    private UserService userService;
 
+    @Bean
+    public CustomSecurityExpression customSecurityExpression() {
+        return new CustomSecurityExpression(userService);
+    }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

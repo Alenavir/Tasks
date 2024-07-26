@@ -33,13 +33,6 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findAllByUserId(userId);
     }
 
-    @Override
-    public List<Task> getAllSoonTasks() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime endOfWeek = now.plusWeeks(1);
-
-        return taskRepository.findAllSoonTasks(Timestamp.valueOf(now), Timestamp.valueOf(endOfWeek));
-    }
 
     @Override
     @Transactional
@@ -52,11 +45,22 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<Task> getAllSoonTasks(Long userId) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime endOfWeek = now.plusWeeks(1);
+
+        System.out.println(Timestamp.valueOf(now)  + "  -  " + Timestamp.valueOf(endOfWeek));
+
+        return taskRepository.findAllSoonTasks(userId, Timestamp.valueOf(now), Timestamp.valueOf(endOfWeek));
+    }
+
+
+    @Override
     @Transactional
     public Task create(Task task, Long userId) {
         task.setStatus(Status.TODO);
         taskRepository.save(task);
-        taskRepository.assignTask(task.getId(), userId);
+        taskRepository.assignTask(userId, task.getId());
         return task;
     }
 

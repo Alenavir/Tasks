@@ -1,7 +1,7 @@
 package com.example.task.service.impl;
 
 import com.example.task.domain.user.User;
-import com.example.task.security.JwtTokenProvider;
+import com.example.task.web.security.JwtTokenProvider;
 import com.example.task.service.AuthService;
 import com.example.task.service.UserService;
 import com.example.task.web.dto.auth.JwtRequest;

@@ -1,6 +1,9 @@
 package com.example.task.service;
 
+import com.example.task.domain.task.Task;
 import com.example.task.domain.user.User;
+
+import java.util.List;
 
 public interface UserService {
 

@@ -1,6 +1,7 @@
 package com.example.task.service.impl;
 
 import com.example.task.domain.exception.ResourceNotFoundException;
+import com.example.task.domain.task.Task;
 import com.example.task.domain.user.Role;
 import com.example.task.domain.user.User;
 import com.example.task.repository.UserRepository;
@@ -10,6 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Service
