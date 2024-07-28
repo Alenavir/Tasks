@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/task?currentSchema=task
+    url: jdbc:mysql://db:5432/task
     username: postgres
     password: 123
     driver-class-name: org.postgresql.Driver
@@ -8,17 +8,18 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 
 #  sql:
 #    init:
 #      mode: always
 #      continue-on-error: false
-#      data-locations: classpath:demo_data.sql
+#      data-locations: classpath:initdb.sql
 
 security:
   jwt:
-    secret: ZGZnZGdmZHNmc2Rmc0ZHRkhKR1hYREhHSEpHR0dHSkhHSEdGQ0RGWEQ=
+    secret: ZmdoZmpoZ2dqa2hHRkRGR0Q1NjdWRkNDY2ZjZmdoYmZ4ZHhjdmJmZHRydEZEWEZERENGR2ZjZmZjZnZibmdmNmJoeXRq
     access: 3600000
     refresh: 2592000000
 

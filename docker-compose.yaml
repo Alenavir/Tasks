@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: task
+#    networks:
+#      - app-network
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/task
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres:16.2-alpine
+    container_name: postgres
+#    networks:
+#      - app-network
+    environment:
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: task
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+
+
+#networks:
+#  app-network:
