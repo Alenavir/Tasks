@@ -1,8 +1,10 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:mysql://db:5432/task
-    username: postgres
-    password: 123
+    url: jdbc:postgresql://${HOST_DB}:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_password}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -11,20 +13,13 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   data:
     redis:
-      host: localhost
+      host: ${REDIS_HOST}
       port: 6379
-      password: ZGdnaGhqYmpoayxubWpoNzh2Z0dGR0hnY2ZjNQ==
-
-
-#  sql:
-#    init:
-#      mode: always
-#      continue-on-error: false
-#      data-locations: classpath:initdb.sql
+      password: ${REDIS_PASSWORD}
 
 security:
   jwt:
-    secret: ZmdoZmpoZ2dqa2hHRkRGR0Q1NjdWRkNDY2ZjZmdoYmZ4ZHhjdmJmZHRydEZEWEZERENGR2ZjZmZjZnZibmdmNmJoeXRq
-    access: 3600000
-    refresh: 2592000000
+    secret: ${JWT_SECRET}
+    access: 1
+    refresh: 30
 

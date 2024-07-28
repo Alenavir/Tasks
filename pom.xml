@@ -139,7 +139,7 @@
 			<version>${jjwt-jackson.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

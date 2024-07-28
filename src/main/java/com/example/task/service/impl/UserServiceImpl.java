@@ -114,10 +114,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    @CacheEvict(
-            value = "UserService::getById",
-            key = "#id"
-    )
+    @Caching(evict = {
+            @CacheEvict(
+                    value = "UserService::getById",
+                    key = "#id"),
+            @CacheEvict(
+                    value = "UserService::getByUsername",
+                    key = "#username")
+    })
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
