@@ -46,7 +46,6 @@ public class UserController {
     @PreAuthorize("@cse.canAccessUserById(#id)")
     @Operation(summary = "Get UserDto by id")
     public UserDto getById(@PathVariable Long id) {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         User user = userService.getById(id);
         return userMapper.toDto(user);
     }

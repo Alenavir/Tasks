@@ -7,10 +7,12 @@ services:
 #      - app-network
     depends_on:
       - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/task
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: 123
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/task
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: 123
+    env_file:
+      - .env
     ports:
       - "8080:8080"
 
@@ -20,8 +22,8 @@ services:
 #    networks:
 #      - app-network
     environment:
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: task
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
@@ -32,7 +34,7 @@ services:
     container_name: redis
     ports:
       - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass ZGdnaGhqYmpoayxubWpoNzh2Z0dGR0hnY2ZjNQ==
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
     volumes:
       - cache:/data
 

@@ -59,8 +59,6 @@ public class TaskServiceImpl implements TaskService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfWeek = now.plusWeeks(1);
 
-        System.out.println(Timestamp.valueOf(now)  + "  -  " + Timestamp.valueOf(endOfWeek));
-
         return taskRepository.findAllSoonTasks(userId, Timestamp.valueOf(now), Timestamp.valueOf(endOfWeek));
     }
 
