@@ -27,8 +27,18 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 
+  redis:
+    image: redis:7.2-rc-alpine
+    container_name: redis
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass ZGdnaGhqYmpoayxubWpoNzh2Z0dGR0hnY2ZjNQ==
+    volumes:
+      - cache:/data
+
 volumes:
   db-data:
+  cache:
 
 
 #networks:
