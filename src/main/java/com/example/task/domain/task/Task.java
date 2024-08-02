@@ -1,5 +1,6 @@
 package com.example.task.domain.task;
 
+import com.example.task.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,10 +28,5 @@ public class Task implements Serializable {
     private Status status;
 
     private LocalDateTime localDateTime;
-
-    @Column(name = "image")
-    @CollectionTable(name = "tasks_images")
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> images;
 
 }
