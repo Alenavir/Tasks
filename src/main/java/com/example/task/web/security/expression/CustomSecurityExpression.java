@@ -9,6 +9,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Logger;
+
 @Component("cse")
 @RequiredArgsConstructor
 public class CustomSecurityExpression {
@@ -27,6 +29,8 @@ public class CustomSecurityExpression {
     public boolean canAccessUserByUsername(String username) {
         JwtEntity user = getPrincipal();
         String userUsername = user.getUsername();
+
+        System.out.println(userUsername + " : " + username);
 
         return userUsername.equals(username) || hasAnyRole(Role.ROLE_ADMIN);
     }
