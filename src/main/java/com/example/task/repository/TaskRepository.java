@@ -26,7 +26,14 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             AND ((t.local_date_time IS NULL)
             OR (t.local_date_time BETWEEN :start AND :end))
             """, nativeQuery = true)
-    List<Task> findAllSoonTasks(@Param("userId") Long userId, @Param("start") Timestamp start, @Param("end") Timestamp end);
+    List<Task> findAllTasksForWeek(@Param("userId") Long userId, @Param("start") Timestamp start, @Param("end") Timestamp end);
+
+    @Query(value = """
+            SELECT * FROM tasks t
+            WHERE t.local_date_time is not null
+            AND t.local_date_time between :start and :end
+            """, nativeQuery = true)
+    List<Task> findAllSoonTasks(@Param("start") Timestamp start, @Param("end") Timestamp end);
 
     @Modifying
     @Query(value = """

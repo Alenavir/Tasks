@@ -1,16 +1,19 @@
 package com.example.task.service.impl;
 
+import com.example.task.domain.MailType;
 import com.example.task.domain.exception.ResourceNotFoundException;
 import com.example.task.domain.task.Task;
 import com.example.task.domain.user.Role;
 import com.example.task.domain.user.User;
 import com.example.task.repository.UserRepository;
+import com.example.task.service.MailService;
 import com.example.task.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.mail.MailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.Properties;
 import java.util.Set;
 
 @Service
@@ -26,6 +31,7 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final MailService mailService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -86,9 +92,14 @@ public class UserServiceImpl implements UserService {
             throw new IllegalStateException("Password and password confirmation do not match");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
         Set<Role> roles = Set.of(Role.ROLE_USER);
         user.setRoles(roles);
+        userRepository.save(user);
+        Optional<User> savedUser = userRepository.findById(user.getId());
+        if (savedUser.isEmpty()) {
+            throw new IllegalStateException("User was not saved in the database");
+        }
+        mailService.sendEmail(user, MailType.REGISTRATION, new Properties());
         return user;
      }
 
