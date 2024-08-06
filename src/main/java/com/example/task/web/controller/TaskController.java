@@ -32,7 +32,7 @@ public class TaskController {
 
     @PutMapping
     @Operation(summary = "Update task")
-    @PreAuthorize("@cse.canAccessTask(#dto.id)")
+    @PreAuthorize("@cse.canAccessTask(#taskDto.id)")
     public TaskDto update(@Validated(OnUpdate.class) @RequestBody TaskDto taskDto) {
         Task task = taskMapper.toEntity(taskDto);
         Task updateTask = taskService.update(task);

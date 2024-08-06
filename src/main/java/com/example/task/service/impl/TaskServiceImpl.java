@@ -5,16 +5,20 @@ import com.example.task.domain.task.Status;
 import com.example.task.domain.task.Task;
 import com.example.task.repository.TaskRepository;
 import com.example.task.service.TaskService;
+import com.example.task.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -55,11 +59,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getAllSoonTasks(Long userId) {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime endOfWeek = now.plusWeeks(1);
+    public List<Task> getAllTasksForWeek(Long userId) {
+        ZonedDateTime nowZoned = ZonedDateTime.now(ZoneId.of("Europe/Moscow"));
+        LocalDateTime now = nowZoned.toLocalDateTime();
+        LocalDateTime end = now.plusWeeks(1);
 
-        return taskRepository.findAllSoonTasks(userId, Timestamp.valueOf(now), Timestamp.valueOf(endOfWeek));
+        Timestamp startTimestamp = Timestamp.valueOf(now);
+        Timestamp endTimestamp = Timestamp.valueOf(end);
+
+        return taskRepository.findAllTasksForWeek(userId, startTimestamp, endTimestamp);
     }
 
     @Override
@@ -79,11 +87,24 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Transactional
     @CacheEvict(
-            value = "TasService::getById",
+            value = "TaskService::getById",
             key = "#id"
     )
     public void delete(Long id) {
+        taskRepository.deleteByTaskId(id);
         taskRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Task> getAllSoonTasks(final Duration duration) {
+        ZonedDateTime nowZoned = ZonedDateTime.now(ZoneId.of("Europe/Moscow"));
+        LocalDateTime now = nowZoned.toLocalDateTime();
+        LocalDateTime end = now.plus(duration);
+
+        Timestamp startTimestamp = Timestamp.valueOf(now);
+        Timestamp endTimestamp = Timestamp.valueOf(end);
+
+        return taskRepository.findAllSoonTasks(startTimestamp, endTimestamp);
     }
 
 }
