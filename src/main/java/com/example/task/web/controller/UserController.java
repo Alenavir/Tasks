@@ -75,9 +75,9 @@ public class UserController {
 
     @GetMapping("/{id}/soon")
     @Operation(summary = "Get tasks for the week")
-    @PreAuthorize("@cse.canAccessTask(#id)")
-    public List<TaskDto> getAllSoonTasks(@PathVariable Long id) {
-        List<Task> tasks = taskService.getAllSoonTasks(id);
+    @PreAuthorize("@cse.canAccessUserById(#id)")
+    public List<TaskDto> getAllTasksForWeek(@PathVariable Long id) {
+        List<Task> tasks = taskService.getAllTasksForWeek(id);
         return tasks.stream()
                 .map(taskMapper::toDto)
                 .collect(Collectors.toList());

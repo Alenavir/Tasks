@@ -1,6 +1,7 @@
 package com.example.task.repository;
 
 import com.example.task.domain.task.Task;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,12 +23,24 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             SELECT * FROM tasks t
             JOIN users_tasks ut ON ut.task_id = t.id
             WHERE ut.user_id = :userId
-            AND (t.local_date_time IS NULL
+            AND ((t.local_date_time IS NULL)
             OR (t.local_date_time BETWEEN :start AND :end))
             """, nativeQuery = true)
-    List<Task> findAllSoonTasks(@Param("userId") Long userId, @Param("start") Timestamp start, @Param("end") Timestamp end);
+    List<Task> findAllTasksForWeek(@Param("userId") Long userId, @Param("start") Timestamp start, @Param("end") Timestamp end);
 
+    @Query(value = """
+            SELECT * FROM tasks t
+            WHERE t.local_date_time is not null
+            AND t.local_date_time between :start and :end
+            """, nativeQuery = true)
+    List<Task> findAllSoonTasks(@Param("start") Timestamp start, @Param("end") Timestamp end);
 
+    @Modifying
+    @Query(value = """
+            DELETE FROM users_tasks ut 
+            WHERE ut.task_id = :taskId
+            """, nativeQuery = true)
+    void deleteByTaskId(@Param("taskId") Long taskId);
 
     @Modifying
     @Query(value = """
@@ -35,12 +48,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             VALUES (:userId, :taskId)
             """, nativeQuery = true)
     void assignTask(@Param("userId") Long userId, @Param("taskId") Long taskId);
-
-    @Modifying
-    @Query(value = """
-            INSERT INTO tasks_images (task_id, image)
-            VALUES (:id, :fileName)
-            """, nativeQuery = true)
-    void addImage(@Param("id") Long id, @Param("fileName") String fileName);
 
 }
