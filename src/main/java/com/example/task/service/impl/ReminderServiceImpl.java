@@ -30,10 +30,8 @@ public class ReminderServiceImpl implements ReminderService {
     @Override
     public void remindForTask() {
         List<Task> tasks = taskService.getAllSoonTasks(duration);
-        System.out.println(tasks);
         tasks.forEach(task -> {
             User user = userService.getTaskAuthor(task.getId());
-            System.out.println(user);
             Properties properties = new Properties();
             properties.setProperty("task.title", task.getTitle());
             properties.setProperty("task.description", task.getDescription() != null ? task.getDescription() : "");
