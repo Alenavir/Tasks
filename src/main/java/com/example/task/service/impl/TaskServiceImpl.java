@@ -5,12 +5,10 @@ import com.example.task.domain.task.Status;
 import com.example.task.domain.task.Task;
 import com.example.task.repository.TaskRepository;
 import com.example.task.service.TaskService;
-import com.example.task.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
