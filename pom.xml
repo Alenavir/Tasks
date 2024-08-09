@@ -38,7 +38,7 @@
 		<jjwt-impl.version>0.11.5</jjwt-impl.version>
 		<jjwt-jackson.version>0.11.5</jjwt-jackson.version>
 		<spring-doc.version>2.2.0</spring-doc.version>
-		<junit-jupiter-api.version>5.10.0</junit-jupiter-api.version>
+		<junit-jupiter-api.version>5.11.0-M2</junit-jupiter-api.version>
 		<mockito-core.version>5.12.0</mockito-core.version>
 	</properties>
 	<dependencies>
