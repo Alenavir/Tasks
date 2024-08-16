@@ -1,4 +1,4 @@
-package com.example.task.config;
+package com.example.task.service.impl.config;
 
 import com.example.task.repository.TaskRepository;
 import com.example.task.repository.UserRepository;

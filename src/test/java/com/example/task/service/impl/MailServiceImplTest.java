@@ -1,6 +1,6 @@
 package com.example.task.service.impl;
 
-import com.example.task.config.TestConfig;
+import com.example.task.service.impl.config.TestConfig;
 import com.example.task.domain.MailType;
 import com.example.task.domain.user.User;
 import com.example.task.repository.TaskRepository;
