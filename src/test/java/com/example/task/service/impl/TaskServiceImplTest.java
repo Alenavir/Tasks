@@ -1,11 +1,10 @@
 package com.example.task.service.impl;
 
-import com.example.task.config.TestConfig;
+import com.example.task.service.impl.config.TestConfig;
 import com.example.task.domain.exception.ResourceNotFoundException;
 import com.example.task.domain.task.Status;
 import com.example.task.domain.task.Task;
 import com.example.task.repository.TaskRepository;
-import com.sun.source.tree.ModuleTree;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

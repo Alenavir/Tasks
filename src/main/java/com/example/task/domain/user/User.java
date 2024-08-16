@@ -3,6 +3,7 @@ package com.example.task.domain.user;
 import com.example.task.domain.task.Task;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
