@@ -14,11 +14,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Set up environment variables
-        run: |
-          echo "SPRING_REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}" >> $GITHUB_ENV
-          echo "SPRING_MAIL_USERNAME=${{ secrets.SPRING_MAIL_USERNAME }}" >> $GITHUB_ENV
-          echo "SPRING_MAIL_PASSWORD=${{ secrets.SPRING_MAIL_PASSWORD }}" >> $GITHUB_ENV
       - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
