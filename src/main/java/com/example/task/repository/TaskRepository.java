@@ -25,7 +25,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             SELECT * FROM tasks t
             JOIN users_tasks ut ON ut.task_id = t.id
             WHERE ut.user_id = :userId
-            AND ((t.local_date_time IS NULL AND t.status = "TODO")
+            AND ((t.local_date_time IS NULL AND t.status = 'TODO')
             OR (t.local_date_time BETWEEN :start AND :end))
             """, nativeQuery = true)
     List<Task> findAllTasksForWeek(@Param("userId") Long userId, @Param("start") Timestamp start, @Param("end") Timestamp end);
