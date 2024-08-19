@@ -20,13 +20,12 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             maven-
-      - run: mvn clean install
-
       - name: Create .env file
         run: |
           echo "SPRING_MAIL_PASSWORD=${{ secrets.SPRING_MAIL_PASSWORD }}" >> .env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
-          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
-      - name: Run Docker Compose
-        run: docker-compose up --build
+          echo "JWT_SECRET=${{ secrets.SPRING_MAIL_USERNAME }}" >> .env
+#      - name: Run Docker Compose
+#        run: docker-compose up --build
+      - run: mvn clean install
+
 
